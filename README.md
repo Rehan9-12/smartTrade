@@ -1,43 +1,16 @@
-# Codev Template
+# Next.js + Tailwind CSS + Context API Starter Template
 
-This is a Codev template project that includes:
+This is a custom boilerplate project created and maintained by **Mohammad Rehan** and **Prabhkar Verma** for building scalable and modern web applications.
 
-1. Next.js with Pages Router
-2. Tailwind CSS Framework
-3. Context for global state management
+## 🔧 Stack Overview
 
-## Features
+- **Next.js (Pages Router)**: Traditional routing system of Next.js for fast, file-based navigation.
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
+- **React Context API**: Simple and efficient global state management without third-party libraries.
 
-- **Next.js Pages Router**: Utilizes the traditional routing system of Next.js for easy navigation and page management.
-- **Tailwind CSS**: A utility-first CSS framework that provides low-level utility classes to build custom designs quickly and efficiently.
-- **Context API**: Implements React's Context API for efficient global state management.
+## 🚀 Getting Started
 
-## Getting Started
-
-1. Clone this repository
-2. Install dependencies:
-   ```
-   npm install
-   ```
-3. Run the development server:
-   ```
-   npm run dev
-   ```
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
-
-## Project Structure
-
-- `pages/`: Contains all the pages of the application
-- `components/`: Reusable React components
-- `contexts/`: Global state management using Context API
-- `hooks/`: Custom React hooks
-- `styles/`: Global style (global.css)
-- `utils/`: Utility functions and helpers
-
-## Learn More
-
-To learn more about the technologies used in this template, check out the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [React Context API](https://reactjs.org/docs/context.html)
+1. **Clone this repository**:
+   ```bash
+   git clone https://github.com/Rehan9-12/smartTrade
+   cd your-repo-name
