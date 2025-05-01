@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id             String        @id @db.Uuid
+  email          String        @unique
+  createdAt      DateTime      @default(now())
+  name           String?
+  avatarUrl      String?
+  balance        Float         @default(10000) // Starting with $10,000 virtual money
+  riskLevel      RiskLevel     @default(MODERATE)
+  portfolios     Portfolio[]
+  transactions   Transaction[]
+  watchlists     Watchlist[]
+  blogPosts      BlogPost[]    @relation("AuthoredPosts")
+}
+
+model Stock {
+  id            String         @id @default(uuid())
+  symbol        String         @unique
+  name          String
+  currentPrice  Float
+  previousClose Float
+  change        Float
+  changePercent Float
+  volume        Int
+  marketCap     Float?
+  sector        String?
+  updatedAt     DateTime       @updatedAt
+  portfolioItems PortfolioItem[]
+  watchlistItems WatchlistItem[]
+  transactions   Transaction[]
+}
+
+model Portfolio {
+  id            String         @id @default(uuid())
+  name          String
+  userId        String         @db.Uuid
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items         PortfolioItem[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model PortfolioItem {
+  id          String    @id @default(uuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  stockId     String
+  stock       Stock     @relation(fields: [stockId], references: [id], onDelete: Cascade)
+  quantity    Int
+  avgBuyPrice Float
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([portfolioId, stockId])
+}
+
+model Transaction {
+  id        String          @id @default(uuid())
+  userId    String          @db.Uuid
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stockId   String
+  stock     Stock           @relation(fields: [stockId], references: [id], onDelete: Cascade)
+  type      TransactionType
+  quantity  Int
+  price     Float
+  total     Float
+  timestamp DateTime        @default(now())
+}
+
+model Watchlist {
+  id        String          @id @default(uuid())
+  name      String
+  userId    String          @db.Uuid
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     WatchlistItem[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+model WatchlistItem {
+  id          String    @id @default(uuid())
+  watchlistId String
+  watchlist   Watchlist @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
+  stockId     String
+  stock       Stock     @relation(fields: [stockId], references: [id], onDelete: Cascade)
+  addedAt     DateTime  @default(now())
+
+  @@unique([watchlistId, stockId])
+}
+
+model BlogPost {
+  id        String   @id @default(uuid())
+  title     String
+  content   String   @db.Text
+  authorId  String   @db.Uuid
+  author    User     @relation("AuthoredPosts", fields: [authorId], references: [id], onDelete: Cascade)
+  category  String
+  tags      String[]
+  imageUrl  String?
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TransactionType {
+  BUY
+  SELL
+}
+
+enum RiskLevel {
+  LOW
+  MODERATE
+  HIGH
+}
