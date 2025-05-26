@@ -32,7 +32,7 @@ export default function Home() {
         <title>SmartTrade | Intelligent Trading Platform</title>
         <meta name="description" content="SmartTrade - AI-powered trading platform for smart investors. Real-time stock data, portfolio management, and AI-driven insights." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <div className="bg-background min-h-screen flex flex-col">
         <Header />
