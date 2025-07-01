@@ -1,6 +1,6 @@
 # Next.js + Tailwind CSS + Context API Starter Template
 
-This is a custom boilerplate project created and maintained by **Mohammad Rehan** and **Prabhkar Verma** for building scalable and modern web applications.
+This is a custom boilerplate project created and maintained by **Mohammad Rehan** for building scalable and modern web applications.
 
 ## 🔧 Stack Overview
 
